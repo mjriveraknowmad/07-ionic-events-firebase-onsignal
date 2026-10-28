@@ -53,6 +53,13 @@ Más info sobre el script y las dimensiones necesarias de las imágenes: [https:
 
 `ionic capacitor build android` 
 
+## Añadir angular-fire
+`ng add @angular/fire@19.2`
+Creamos el proyecto en firebase y vamos a la configuración general (https://console.firebase.google.com/project/ionic-events-f0aa8/settings/general).
+Le damos al icono de app web y ponemos nombre ionic-events-web y registramos.
+Copiamos la configuración (contenido del objeto de firebaseConfig) de Firebase y la pegamos en environment.ts
+
+
 ## Más documentación
 https://ionic-docs-lq0if04rc-ionic1.vercel.app/docs/v7/intro/cli
 https://ionic-docs-lq0if04rc-ionic1.vercel.app/docs/v7/components
