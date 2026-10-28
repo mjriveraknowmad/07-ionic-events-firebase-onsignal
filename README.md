@@ -35,6 +35,9 @@ O para generar los iconos:
 `ionic g page pages/create-event`
 `ionic g page pages/update-event`
 
+# Generar componente
+`ionic g c components/form-event`
+
 # Generar servicio
 `ionic g s services/Auth`
 

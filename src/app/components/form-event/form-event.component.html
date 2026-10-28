@@ -1,0 +1,69 @@
+<form [formGroup]="formEvents" (ngSubmit)="submit()">
+
+    <ion-input
+        type="hidden"
+        name="id"
+        formControlName="id"
+    />
+
+    <ion-item lines="none">
+        <ion-input
+            name="title"
+            type="text"
+            label="Título"
+            formControlName="title"
+            errorText="El título es obligatorio"
+        />
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Fecha de inicio</ion-label>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="datetime" formControlName="start" [min]="minDate"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+    </ion-item>
+
+    <ion-item>
+        <ion-select
+            label="Tipo"
+            name="type"
+            formControlName="type">
+
+            <ion-select-option value="blog">Post</ion-select-option>
+            <ion-select-option value="video">Video</ion-select-option>
+            <ion-select-option value="streaming">Streaming</ion-select-option>
+            <ion-select-option value="udemy">Udemy</ion-select-option>
+
+        </ion-select>
+    </ion-item>
+
+    <ion-item lines="none">
+        <ion-input
+            name="url"
+            type="url"
+            label="URL"
+            formControlName="url"
+            errorText="La URL es obligatoria y debe ser válida"
+        />
+    </ion-item>
+
+    <ion-item lines="none">
+        <ion-textarea
+            label="Descripción"
+            name="description"
+            formControlName="description"
+            errorText="La descripción es obligatoria"
+        ></ion-textarea>
+    </ion-item>
+
+    <ion-item lines="none">
+        <ion-button type="submit" slot="end" [disabled]="formEvents.invalid">
+            Guardar evento
+        </ion-button>
+    </ion-item>
+
+</form>

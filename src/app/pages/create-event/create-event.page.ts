@@ -8,6 +8,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
+import { FormEventComponent } from 'src/app/components/form-event/form-event.component';
 import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
 
 @Component({
@@ -24,6 +25,7 @@ import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
     FormsModule,
     IonIcon,
     ToolbarComponent,
+    FormEventComponent,
   ],
 })
 export class CreateEventPage implements OnInit {
