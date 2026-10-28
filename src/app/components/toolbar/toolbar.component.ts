@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonButtons,
@@ -34,6 +34,7 @@ import { AuthService } from 'src/app/services/auth';
 export class ToolbarComponent {
   titlePage = input.required<string>();
   private auth = inject(AuthService);
+  private router = inject(Router);
   public isAuthenticated = this.auth.isAuthenticated.asReadonly();
 
   constructor() {
@@ -44,6 +45,8 @@ export class ToolbarComponent {
   }
 
   logout() {
-    this.auth.logout();
+    this.auth.logout().then(() => {
+      this.router.navigateByUrl('login');
+    });
   }
 }
