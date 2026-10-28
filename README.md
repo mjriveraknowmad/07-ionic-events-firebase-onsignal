@@ -40,6 +40,7 @@ O para generar los iconos:
 
 # Generar servicio
 `ionic g s services/Auth`
+`ionic g s services/events`
 
 # Generar pipe
 `ionic g pipe pipes/mipipe`
@@ -62,6 +63,12 @@ Creamos el proyecto en firebase y vamos a la configuración general (https://con
 Le damos al icono de app web y ponemos nombre ionic-events-web y registramos.
 Copiamos la configuración (contenido del objeto de firebaseConfig) de Firebase y la pegamos en environment.ts
 
+En las Reglas del firebase lo he modificado por 
+    match /events/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+https://console.firebase.google.com/project/ionic-events-f0aa8/firestore/databases/-default-/security/rules
 
 ## Más documentación
 https://ionic-docs-lq0if04rc-ionic1.vercel.app/docs/v7/intro/cli
