@@ -1,20 +1,51 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Component, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonInput,
+  IonItem,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular/standalone';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    ReactiveFormsModule,
+    IonItem,
+    IonInput,
+    IonButton,
+    RouterLink,
+  ],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
+  private formBuilder = inject(FormBuilder);
 
-  constructor() { }
+  public formLogin: FormGroup = this.formBuilder.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
-  ngOnInit() {
+  login() {
+    const user: User = this.formLogin.value;
+    console.log(user);
   }
-
 }

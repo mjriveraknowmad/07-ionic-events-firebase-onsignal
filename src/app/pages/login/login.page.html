@@ -5,9 +5,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">login</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <form [formGroup]="formLogin" (ngSubmit)="login()">
+
+    <ion-item>
+      <ion-input
+        label="Email"
+        type="email"
+        name="email"
+        formControlName="email"
+      />
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Contraseña"
+        type="password"
+        name="password"
+        formControlName="password"
+      />
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-button slot="start" type="button" routerLink="/events">Volver</ion-button>
+      <ion-button slot="end" type="submit">Login</ion-button>
+
+    </ion-item>
+
+  </form>
+
+
 </ion-content>
