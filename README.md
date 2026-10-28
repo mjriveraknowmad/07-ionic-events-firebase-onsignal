@@ -36,7 +36,7 @@ O para generar los iconos:
 `ionic g page pages/update-event`
 
 # Generar servicio
-`ionic g s services/miservicio`
+`ionic g s services/Auth`
 
 # Generar pipe
 `ionic g pipe pipes/mipipe`

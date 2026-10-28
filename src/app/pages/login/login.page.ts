@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonContent,
@@ -17,6 +17,8 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth';
+import { Toast } from 'src/app/services/toast';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +40,9 @@ import { User } from 'src/app/models/user.model';
 })
 export class LoginPage {
   private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private toast = inject(Toast);
+  private router = inject(Router);
 
   public formLogin: FormGroup = this.formBuilder.group({
     email: ['', Validators.required],
@@ -46,6 +51,12 @@ export class LoginPage {
 
   login() {
     const user: User = this.formLogin.value;
-    console.log(user);
+    this.authService.login(user.email, user.password).then((res) => {
+      console.log('Login successful', res);
+      this.toast.showToast('Logueado con éxito');
+      this.router.navigateByUrl('create-event');
+    }).catch((err) => {
+      this.toast.showToast('El usuario o la contraseña son incorrectos');
+    });
   }
 }
