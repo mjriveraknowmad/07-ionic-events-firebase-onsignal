@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, getDocs, getFirestore, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
+import moment from 'moment';
 import { EventApp } from '../models/event.model';
 
 @Injectable({
@@ -19,5 +20,42 @@ export class Events {
     // Asignamos el ID generado al evento
     evento.id = newEventRef.id;
     await setDoc(newEventRef, evento);
+  }
+
+  getFutureEvents(type?: string){
+
+    // Constraints de nuestro consulta
+    const queryConstraints: QueryConstraint[] = [
+      orderBy('start'),
+      where('start', '>=', moment().format('YYYY-MM-DDTHH:mm'))
+    ]
+
+    // Si existe el tipo a filtrar, lo añadimos a los constraints
+    if(type){
+      queryConstraints.push(
+        where('type', '==', type)
+      )
+    }
+
+    // Generamos la query
+    const queryDB = query(
+      collection(this.database, this.COLLECTION_EVENTS),
+      ...queryConstraints
+    )
+
+    // Obtenemos los eventos
+    return getDocs(queryDB).then(
+      (querySnapshot: QuerySnapshot<DocumentData, DocumentData> ) => {
+        const events: EventApp[] = [];
+        // Recorremos los resultados
+        querySnapshot.forEach( (doc: QueryDocumentSnapshot<DocumentData, DocumentData>) => {
+          const data = doc.data() as EventApp;
+          events.push(data);
+        })
+
+        return events;
+    })
+
+
   }
 }

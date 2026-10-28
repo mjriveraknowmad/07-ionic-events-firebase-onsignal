@@ -1,8 +1,47 @@
 <app-toolbar titlePage="Eventos"></app-toolbar>
+
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">events</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid>
+    @if(events.length == 0){
+      <ion-row>
+        <ion-col class="ion-text-center ion-margin">
+          <ion-text>No hay eventos próximos</ion-text>
+        </ion-col>
+      </ion-row>
+    }@else {
+      <!-- Recorremos los eventos -->
+      @for(event of events; track event.id){
+        <ion-row>
+          <ion-col>
+
+            <ion-card [class]="event.type">
+              <ion-card-content>
+
+                <!-- Informacion del evento -->
+
+                <ion-item lines="none">
+                  <ion-text>{{event.start | date: 'dd-MM-YYYY HH:mm'}}</ion-text>
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-text>{{event.title}}</ion-text>
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-text>{{event.description}}</ion-text>
+                </ion-item>
+
+
+              </ion-card-content>
+            </ion-card>
+
+          </ion-col>
+        </ion-row>
+
+      }
+
+    }
+
+  </ion-grid>
+
 </ion-content>
