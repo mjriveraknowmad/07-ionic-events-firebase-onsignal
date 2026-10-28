@@ -5,7 +5,6 @@ import { Router, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonButtons,
-  IonContent,
   IonHeader,
   IonIcon,
   IonTitle,
@@ -19,7 +18,6 @@ import { AuthService } from 'src/app/services/auth';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   imports: [
-    IonContent,
     IonHeader,
     IonTitle,
     IonToolbar,

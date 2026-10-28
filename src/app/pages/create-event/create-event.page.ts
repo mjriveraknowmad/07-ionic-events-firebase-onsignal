@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import {
   IonContent,
   IonHeader,
-  IonIcon,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
@@ -27,7 +26,6 @@ import { Toast } from 'src/app/services/toast';
     IonToolbar,
     CommonModule,
     FormsModule,
-    IonIcon,
     ToolbarComponent,
     FormEventComponent,
   ],
