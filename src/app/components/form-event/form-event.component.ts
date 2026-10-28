@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventApp } from 'src/app/models/event.model';
 import moment from 'moment';
@@ -6,6 +6,9 @@ import {
   IonInput,
   IonItem,
   IonLabel,
+  IonFab,
+  IonFabButton,
+  IonIcon,
   IonSelect,
   IonSelectOption,
   IonTextarea,
@@ -14,6 +17,9 @@ import {
   IonModal,
   IonDatetime
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { chevronBackOutline } from 'ionicons/icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-form-event',
@@ -30,7 +36,12 @@ import {
     IonButton,
     IonDatetimeButton,
     IonModal,
-    IonDatetime  // más info: https://ionicframework.com/docs/api/datetime-button
+    IonDatetime,
+    IonFab,
+    IonFabButton,
+    IonIcon,
+    RouterLink
+
   ]
 })
 export class FormEventComponent  implements OnInit {
@@ -38,11 +49,16 @@ export class FormEventComponent  implements OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
 
   @Input() event?: EventApp;
+  @Output() submitForm = new EventEmitter<EventApp>();
 
   public formEvents: FormGroup = new FormGroup({});
   public minDate: string = moment().format('YYYY-MM-DDTHH:mm')
 
-  constructor() { }
+  constructor() {
+    addIcons({
+      chevronBackOutline
+    })
+  }
 
   ngOnInit() {
     this.initForm();
@@ -76,6 +92,15 @@ export class FormEventComponent  implements OnInit {
 
   submit(){
 
+    const event: EventApp = this.formEvents.value;
+
+    // En caso de que la url no incluya http:// o https://
+    // Se lo incluimos nosotros
+    if( !(event.url.startsWith('http://') || event.url.startsWith('https://')) ){
+      event.url = `http://${event.url}`;
+    }
+    console.log(event);
+    this.submitForm.emit(event);
   }
 
 }
