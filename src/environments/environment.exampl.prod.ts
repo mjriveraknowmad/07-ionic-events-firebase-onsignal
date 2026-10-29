@@ -9,5 +9,7 @@ export const environment = {
     messagingSenderId: '12312321321',
     appId: '1:123132132132121:web:123132132132121',
   },
+  oneSignalAppId: 'af1111111-11c1-2b22-3fb3-444c444c4444',
+  oneSignalRestApiKey: 'asdfasdfasffdsaf'
 
 };

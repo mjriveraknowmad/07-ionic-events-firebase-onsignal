@@ -12,6 +12,7 @@ import { Events } from 'src/app/services/events';
 import { Browser } from '@capacitor/browser';
 import { Alert } from 'src/app/services/alert';
 import { Toast } from 'src/app/services/toast';
+import { Notifications } from 'src/app/notifications';
 
 
 @Component({
@@ -53,6 +54,7 @@ export class EventsPage {
   private alert = inject(Alert);
   private loadingCtrl = inject(LoadingController);
   private actionSheetCtrl = inject(ActionSheetController);
+  private notifications = inject(Notifications);
   private toast = inject(Toast);
   private router = inject(Router);
   events: EventApp[] = [];
@@ -125,6 +127,9 @@ export class EventsPage {
   deleteEvent(event: EventApp) {
     this.eventsSvc.deleteEvent(event.id!).then(() => {
       this.toast.showToast('Se ha eliminado el evento');
+      if (event.notificationId) {
+        this.notifications.cancelNotification(event.notificationId);
+      }
       this.getEvents(this.typeSearch);
     }).catch(err => {
       this.toast.showToast('Se ha producido un error al eliminar el evento');

@@ -31,6 +31,19 @@ O para generar los iconos:
 O para abrir una url:
 `npm install @capacitor/browser@7.0.1`
 
+O para obtener información del dispositivo:
+`npm install @capacitor/devicer@7.0.1`
+
+O para hacer push de notificaciones (contra servidor onesignal):
+`npm install @capacitor/push-notifications@7.0.1`
+`npm install onesignal-cordova-plugin`
+Fuimos a https://console.firebase.google.com/project/ionic-events-f0aa8/settings/serviceaccounts/adminsdk pestaña de cuentas de servicio y pulsamos en Generar clave privada y nos descargará un archivo .json que será el que se use en onesignal.com (donde nos tenemos que crear una cuenta> crear una app > tipo push > Integrate the OneSignal SDK > Google Android > Subir archivo json > Continuar > Capacitor > Copiamos el App ID que nos da y lo ponemos en los environment.ts como oneSignalAppId. Luego, en la web de OneSignal, vamos al apartado de "Keys & IDs" y pulsamos en Add Key y copiamos el generado en los environment.ts como oneSignalRestApiKey)
+
+
+Ir al listado de aplicaciones de firebase, entrar en la aplicación de ionic-events, y darle a agregar app, y seleccionar Android. Como nombre de paquete android ponemos el que se encuentra en capacitor.config.ts (que en nuestro caso es 'io.ionic.starter', sino lo cambiamos) y le damos a "Registrar app" y luego pulsamos en "Descargar google-services.json" y lo guardamos y luego siguiente, siguiente y finalmente "ir a consola"
+Ejecutamos `ionic capacitor build android` y tras la generación, se pega el archivo google-services.json descargado, en la carpeta android/app (en la carpeta app)
+
+
 
 ## Generar páginas
 `ionic g page pages/login`
@@ -44,6 +57,7 @@ O para abrir una url:
 # Generar servicio
 `ionic g s services/Auth`
 `ionic g s services/events`
+`ionic g s notifications` 
 
 # Generar pipe
 `ionic g pipe pipes/mipipe`
@@ -76,6 +90,9 @@ https://console.firebase.google.com/project/ionic-events-f0aa8/firestore/databas
 Hubo que indexar la base de datos, para poder hacer el filtrado, se mostraba un error en consola indicando la url a la que había ir, y como mucho pulsar un botón en esa página, para que empiece a indexar.
 
 
+## Añadir librerías de npm 
+`npm i moment-timezone`
+`npm i moment`
 
 ## Más documentación
 https://ionic-docs-lq0if04rc-ionic1.vercel.app/docs/v7/intro/cli

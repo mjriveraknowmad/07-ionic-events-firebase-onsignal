@@ -5,4 +5,5 @@ export interface EventApp {
   description: string;
   type: string;
   url: string;
+  notificationId?: string;
 }

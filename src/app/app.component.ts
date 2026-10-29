@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, Platform } from '@ionic/angular/standalone';
 import { AuthService } from './services/auth';
+import { Notifications } from './notifications';
+import config from 'capacitor.config';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,20 @@ import { AuthService } from './services/auth';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent implements OnInit {
-  private auth = inject(AuthService);
+  private authService = inject(AuthService);
+  private platform: Platform = inject(Platform);
+  private notificationsService: Notifications =
+    inject(Notifications);
 
-  ngOnInit() {
-    this.auth.checkIsLogged();
+  ngOnInit(): void {
+    // Comprobamos si estamos logueados
+    this.authService.checkIsLogged();
+
+    this.platform.ready().then(() => {
+      // Inicializamos las notificaciones
+      this.notificationsService.init();
+      // Habilitamos CapacitorHttp para que no interfiera con la conexion con firebase
+      config.plugins!.CapacitorHttp!.enabled = true;
+    });
   }
 }

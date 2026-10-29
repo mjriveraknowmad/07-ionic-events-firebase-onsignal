@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Device, DeviceInfo } from '@capacitor/device';
 import {
   IonButton,
   IonContent,
@@ -12,6 +13,8 @@ import {
 import { FormEventComponent } from 'src/app/components/form-event/form-event.component';
 import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
 import { EventApp } from 'src/app/models/event.model';
+import { NotificationApp } from 'src/app/models/Notification.model';
+import { Notifications } from 'src/app/notifications';
 import { Events } from 'src/app/services/events';
 import { Toast } from 'src/app/services/toast';
 
@@ -36,6 +39,7 @@ export class UpdateEventPage {
 
   private eventsService = inject(Events);
   private loadingCtrl = inject(LoadingController);
+  private notificationsService = inject(Notifications);
   private toast = inject(Toast);
   private router = inject(Router);
   // id del evento
@@ -66,6 +70,30 @@ export class UpdateEventPage {
     // Actualizamos un evento
     this.eventsService.updateEvent(event).then( async () => {
       this.toast.showToast('Se ha actualizado el evento');
+      // Obtenemos la informacion del dispositivo
+      const device: DeviceInfo = await Device.getInfo();
+
+      // si estamos en android y existe la notificacion
+      if(device.platform == 'android' && event.notificationId){
+
+        // primero cancelamos la notificacion, porque en realidad no se puede actualizar, lo que se hace es crear una nueva con la informacion actualizada
+        this.notificationsService.cancelNotification(event.notificationId);
+
+        // Creamos la notificacion
+        const notification: NotificationApp = {
+          title: event.title,
+          body: event.description,
+          date: event.start,
+          url: event.url
+        }
+
+        // Enviamos otra notificacion
+        this.notificationsService.sendNotification(notification).then( (notificationResponse: any) => {
+          event.notificationId = notificationResponse.id;
+          this.eventsService.updateEvent(event);
+        });
+
+      }
       this.router.navigateByUrl('/events')
     }).catch(err => {
       console.error(err);
