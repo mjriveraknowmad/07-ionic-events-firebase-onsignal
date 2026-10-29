@@ -28,6 +28,9 @@ Por ejemplo, para añadir el plugin de preferences, para guardar datos en el sto
 O para generar los iconos:
 `npm install @capacitor/assets --save-dev`
 
+O para abrir una url:
+`npm install @capacitor/browser@7.0.1`
+
 
 ## Generar páginas
 `ionic g page pages/login`

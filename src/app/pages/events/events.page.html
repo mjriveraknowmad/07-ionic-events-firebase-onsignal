@@ -47,7 +47,7 @@
           <ion-col>
 
             <ion-card [class]="event.type">
-              <ion-card-content>
+              <ion-card-content (click)="presentActionSheet(event)">
 
                 <!-- Informacion del evento -->
 
