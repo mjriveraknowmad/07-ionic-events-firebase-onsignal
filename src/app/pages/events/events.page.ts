@@ -10,6 +10,8 @@ import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
 import { EventApp } from 'src/app/models/event.model';
 import { Events } from 'src/app/services/events';
 import { Browser } from '@capacitor/browser';
+import { Alert } from 'src/app/services/alert';
+import { Toast } from 'src/app/services/toast';
 
 
 @Component({
@@ -48,8 +50,10 @@ import { Browser } from '@capacitor/browser';
 })
 export class EventsPage {
   private eventsSvc = inject(Events);
+  private alert = inject(Alert);
   private loadingCtrl = inject(LoadingController);
   private actionSheetCtrl = inject(ActionSheetController);
+  private toast = inject(Toast);
   private router = inject(Router);
   events: EventApp[] = [];
   public typeSearch: string = '';
@@ -111,7 +115,20 @@ export class EventsPage {
   }
 
   deleteEventConfirm(event: EventApp) {
-    console.log('Confirmar eliminación del evento:', event);
+    this.alert.alertConfirm(
+      'Confirmación',
+      '¿Estás seguro de qué quieres borrar el evento?',
+      () => this.deleteEvent(event)
+    )
+  }
+
+  deleteEvent(event: EventApp) {
+    this.eventsSvc.deleteEvent(event.id!).then(() => {
+      this.toast.showToast('Se ha eliminado el evento');
+      this.getEvents(this.typeSearch);
+    }).catch(err => {
+      this.toast.showToast('Se ha producido un error al eliminar el evento');
+    })
   }
 
   async presentActionSheet(event: EventApp) {

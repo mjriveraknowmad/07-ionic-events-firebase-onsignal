@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, DocumentSnapshot, getDoc, getDocs, getFirestore, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
+import { collection, deleteDoc, doc, DocumentData, DocumentSnapshot, getDoc, getDocs, getFirestore, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
 import moment from 'moment';
 import { EventApp } from '../models/event.model';
 import { AuthService } from './auth';
@@ -73,5 +73,12 @@ export class Events {
     const eventRef = doc(this.database, `${this.COLLECTION_EVENTS}/${event.id}`);
     // Seteamos el evento
     await setDoc(eventRef, event);
+  }
+
+  async deleteEvent(id: string){
+    // Obtenemos la referencia del evento
+    const eventRef = doc(this.database, `${this.COLLECTION_EVENTS}/${id}`);
+    // Eliminamos el evento
+    await deleteDoc(eventRef)
   }
 }
