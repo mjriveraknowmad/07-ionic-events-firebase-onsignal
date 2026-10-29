@@ -5,6 +5,9 @@ const config: CapacitorConfig = {
   appName: '07-ionic-events-firebase-onesignal',
   webDir: 'www',
   plugins: {
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"]
+    },
     CapacitorHttp: {
       enabled: true
     }
