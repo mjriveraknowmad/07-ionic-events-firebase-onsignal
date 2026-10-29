@@ -3,12 +3,15 @@ import { FirebaseApp } from '@angular/fire/app';
 import { collection, doc, DocumentData, getDocs, getFirestore, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
 import moment from 'moment';
 import { EventApp } from '../models/event.model';
+import { AuthService } from './auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Events {
   private fbApp = inject(FirebaseApp);
+  private auth = inject(AuthService);
+  public isAuthenticated = this.auth.isAuthenticated.asReadonly();
   private database =  getFirestore(this.fbApp);
   private readonly COLLECTION_EVENTS = 'events'; // Nombre de la colección en Firestore donde se almacenan los eventos (denominan path)
 

@@ -77,3 +77,15 @@
   </ion-grid>
 
 </ion-content>
+
+@if(isAuthenticated()){
+  <ion-footer class="ion-no-border">
+    <ion-toolbar>
+      <ion-fab horizontal="center" vertical="center">
+        <ion-fab-button routerLink="/create-event">
+          <ion-icon name="add"  />
+        </ion-fab-button>
+      </ion-fab>
+    </ion-toolbar>
+  </ion-footer>
+}

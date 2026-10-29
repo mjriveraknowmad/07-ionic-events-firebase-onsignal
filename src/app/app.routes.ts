@@ -5,10 +5,6 @@ const redirectToLogin = () => redirectUnauthorizedTo(['login']);
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
@@ -32,7 +28,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'events',
     pathMatch: 'full',
   },
 ];

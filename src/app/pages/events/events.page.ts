@@ -1,7 +1,8 @@
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonItem, IonRow, IonText, LoadingController, IonChip, IonLabel, IonIcon, IonRefresher, IonRefresherContent, RefresherEventDetail } from '@ionic/angular/standalone';
+import { RouterLink } from '@angular/router';
+import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonItem, IonRow, IonText, LoadingController, IonChip, IonLabel, IonIcon, IonRefresher, IonRefresherContent, RefresherEventDetail, IonFooter, IonToolbar, IonFab, IonFabButton } from '@ionic/angular/standalone';
 import { IonRefresherCustomEvent } from '@ionic/core';
 import { addIcons } from 'ionicons';
 import { desktopOutline, caretForwardCircleOutline, videocamOutline, ticketOutline, add, earthOutline, pencilOutline, closeOutline, trashOutline } from 'ionicons/icons';
@@ -35,7 +36,12 @@ import { Events } from 'src/app/services/events';
     IonIcon,
     NgClass,
     IonRefresher,
-    IonRefresherContent
+    IonRefresherContent,
+    IonFooter,
+    IonToolbar,
+    IonFab,
+    IonFabButton,
+    RouterLink
 ],
 })
 export class EventsPage {
@@ -43,6 +49,7 @@ export class EventsPage {
   private loadingCtrl = inject(LoadingController);
   events: EventApp[] = [];
   public typeSearch: string = '';
+  public isAuthenticated = this.eventsSvc.isAuthenticated;
 
   constructor() {
     addIcons({
