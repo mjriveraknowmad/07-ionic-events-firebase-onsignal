@@ -85,7 +85,8 @@ export class FormEventComponent  implements OnInit {
         Validators.required,
         Validators.pattern('^(https?:\\/\\/)?([a-zA-Z0-9.-]+)(\\/[^\\s?#]*)?(\\?[^\\s#]*)?$')
       ]],
-      description: [this.event.description, Validators.required]
+      description: [this.event.description, Validators.required],
+      notificationId: [this.event.notificationId]
     })
 
   }
