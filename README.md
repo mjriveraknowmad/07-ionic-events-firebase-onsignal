@@ -70,6 +70,10 @@ En las Reglas del firebase lo he modificado por
     }
 https://console.firebase.google.com/project/ionic-events-f0aa8/firestore/databases/-default-/security/rules
 
+Hubo que indexar la base de datos, para poder hacer el filtrado, se mostraba un error en consola indicando la url a la que había ir, y como mucho pulsar un botón en esa página, para que empiece a indexar.
+
+
+
 ## Más documentación
 https://ionic-docs-lq0if04rc-ionic1.vercel.app/docs/v7/intro/cli
 https://ionic-docs-lq0if04rc-ionic1.vercel.app/docs/v7/components

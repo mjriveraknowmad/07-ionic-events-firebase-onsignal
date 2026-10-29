@@ -1,7 +1,33 @@
 <app-toolbar titlePage="Eventos"></app-toolbar>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
+ <ion-grid>
+    <ion-row>
+      <ion-col>
+
+        <ion-chip class="blog" (click)="filterEventsByType('blog')" [ngClass]="{'selected': typeSearch == 'blog' }">
+          <ion-icon name="desktop-outline" />
+          <ion-label>Blog</ion-label>
+        </ion-chip>
+
+        <ion-chip class="video" (click)="filterEventsByType('video')" [ngClass]="{'selected': typeSearch == 'video' }">
+          <ion-icon name="caret-forward-circle-outline" />
+          <ion-label>Video</ion-label>
+        </ion-chip>
+
+        <ion-chip class="streaming" (click)="filterEventsByType('streaming')" [ngClass]="{'selected': typeSearch == 'streaming' }">
+          <ion-icon name="videocam-outline" />
+          <ion-label>Streaming</ion-label>
+        </ion-chip>
+
+        <ion-chip class="udemy" (click)="filterEventsByType('udemy')" [ngClass]="{'selected': typeSearch == 'udemy' }">
+          <ion-icon name="ticket-outline" />
+          <ion-label>Udemy</ion-label>
+        </ion-chip>
+
+      </ion-col>
+    </ion-row>
+
     @if(events.length == 0){
       <ion-row>
         <ion-col class="ion-text-center ion-margin">

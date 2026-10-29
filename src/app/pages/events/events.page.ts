@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -10,8 +10,13 @@ import {
   IonItem,
   IonRow,
   IonText,
-  LoadingController
+  LoadingController,
+  IonChip,
+  IonLabel,
+  IonIcon
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { desktopOutline, caretForwardCircleOutline, videocamOutline, ticketOutline, add, earthOutline, pencilOutline, closeOutline, trashOutline } from 'ionicons/icons';
 import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
 import { EventApp } from 'src/app/models/event.model';
 import { Events } from 'src/app/services/events';
@@ -37,12 +42,31 @@ import { Events } from 'src/app/services/events';
     IonCardContent,
     IonItem,
     DatePipe,
+    IonChip,
+    IonLabel,
+    IonIcon,
+    NgClass
   ],
 })
 export class EventsPage {
   private eventsSvc = inject(Events);
   private loadingCtrl = inject(LoadingController);
   events: EventApp[] = [];
+  public typeSearch: string = '';
+
+  constructor() {
+    addIcons({
+      desktopOutline,
+      caretForwardCircleOutline,
+      videocamOutline,
+      ticketOutline,
+      add,
+      earthOutline,
+      pencilOutline,
+      closeOutline,
+      trashOutline
+    })
+  }
 
   ionViewWillEnter() {
     this.getEvents();
@@ -68,5 +92,14 @@ export class EventsPage {
       .finally(() => {
         loading.dismiss();
       });
+  }
+
+  async filterEventsByType(type: string) {
+    if (this.typeSearch == type) {
+      this.typeSearch = '';
+    } else {
+      this.typeSearch = type;
+    }
+    this.getEvents(this.typeSearch);
   }
 }
