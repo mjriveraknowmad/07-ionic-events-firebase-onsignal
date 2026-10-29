@@ -21,7 +21,7 @@ export const routes: Routes = [
     data: { authGuardPipe: redirectToLogin } // sacado de la documentación de AngularFire, para redirigir a login si no está autenticado
   },
   {
-    path: 'update-event',
+    path: 'update-event/:id',
     loadComponent: () => import('./pages/update-event/update-event.page').then( m => m.UpdateEventPage),
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectToLogin } // sacado de la documentación de AngularFire, para redirigir a login si no está autenticado
