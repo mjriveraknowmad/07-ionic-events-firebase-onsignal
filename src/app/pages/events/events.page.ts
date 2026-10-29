@@ -1,20 +1,8 @@
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  IonCard,
-  IonCardContent,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonItem,
-  IonRow,
-  IonText,
-  LoadingController,
-  IonChip,
-  IonLabel,
-  IonIcon
-} from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonItem, IonRow, IonText, LoadingController, IonChip, IonLabel, IonIcon, IonRefresher, IonRefresherContent, RefresherEventDetail } from '@ionic/angular/standalone';
+import { IonRefresherCustomEvent } from '@ionic/core';
 import { addIcons } from 'ionicons';
 import { desktopOutline, caretForwardCircleOutline, videocamOutline, ticketOutline, add, earthOutline, pencilOutline, closeOutline, trashOutline } from 'ionicons/icons';
 import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
@@ -45,8 +33,10 @@ import { Events } from 'src/app/services/events';
     IonChip,
     IonLabel,
     IonIcon,
-    NgClass
-  ],
+    NgClass,
+    IonRefresher,
+    IonRefresherContent
+],
 })
 export class EventsPage {
   private eventsSvc = inject(Events);
@@ -101,5 +91,11 @@ export class EventsPage {
       this.typeSearch = type;
     }
     this.getEvents(this.typeSearch);
+  }
+
+  refreshEvents(event: CustomEvent) {
+    this.typeSearch = '';
+    this.getEvents();
+    (event.target as HTMLIonRefresherElement).complete();
   }
 }

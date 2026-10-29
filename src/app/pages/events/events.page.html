@@ -1,6 +1,12 @@
 <app-toolbar titlePage="Eventos"></app-toolbar>
 
 <ion-content [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="refreshEvents($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
  <ion-grid>
     <ion-row>
       <ion-col>
